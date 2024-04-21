@@ -7,7 +7,6 @@ use MVC\Router;
 
 class AdminController {
     public static function index(Router $router) {
-
         isSession();
 
         isAdmin();
@@ -20,9 +19,12 @@ class AdminController {
             header('Location: /404');
         }
 
-        $consulta = "SELECT citas.id, citas.hora, CONCAT( usuarios.nombre, ' ', usuarios.apellido) as cliente, ";
-        $consulta .= " usuarios.email, usuarios.telefono, servicios.nombre as servicio, servicios.precio  ";
+        $consulta = "SELECT citas.id, CONCAT( usuarios.nombre, ' ', usuarios.apellido) as cliente, ";
+        $consulta .= " usuarios.email, usuarios.telefono, servicios.nombre as servicio, servicios.precio,  ";
+        $consulta .= " horas.hora as hora";
         $consulta .= " FROM citas  ";
+        $consulta .= " LEFT OUTER JOIN horas ";
+        $consulta .= " ON horas.id=citas.horaId ";
         $consulta .= " LEFT OUTER JOIN usuarios ";
         $consulta .= " ON citas.usuarioId=usuarios.id  ";
         $consulta .= " LEFT OUTER JOIN citasservicios ";

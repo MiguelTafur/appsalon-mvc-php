@@ -33,7 +33,9 @@
 
             <div class="campo">
                 <label for="hora">Hora</label>
-                <input type="time" id="hora">
+                <select id="hora">
+                    <option value="">-- Selecciona --</option>
+                </select>
             </div>
             <input type="hidden" id="id" value="<?= $id; ?>">
         </form>
@@ -52,9 +54,9 @@
 
 <?php
 
-$script = "
-    <script src='build/js/app.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-" 
+    $script = "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script src='build/js/app.js'></script>
+    " 
 
 ?>

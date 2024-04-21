@@ -21,12 +21,12 @@ class Email {
         $mail->isSMTP();
         $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = $_ENV['EMAIL_POST'];
+        $mail->Port = $_ENV['EMAIL_PORT'];
         $mail->Username = $_ENV['EMAIL_USER'];
         $mail->Password = $_ENV['EMAIL_PASS'];
 
-        $mail->setFrom('miguel@appsalon.com');
-        $mail->addAddress('miguel@appsalon.com', 'appsalon.com');
+        $mail->setFrom('miguel@credimast.com');
+        $mail->addAddress('miguel@credimast.com', 'appsalon.com');
         $mail->Subject = 'Confirma tu cuenta';
 
         //SET HTML
@@ -49,12 +49,12 @@ class Email {
         $mail->isSMTP();
         $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = $_ENV['EMAIL_POST'];
+        $mail->Port = $_ENV['EMAIL_PORT'];
         $mail->Username = $_ENV['EMAIL_USER'];
         $mail->Password = $_ENV['EMAIL_PASS'];
 
-        $mail->setFrom('miguel@appsalon.com');
-        $mail->addAddress('miguel@appsalon.com', 'appsalon.com');
+        $mail->setFrom('miguel@credimast.com');
+        $mail->addAddress('miguel@credimast.com', 'appsalon.com');
         $mail->Subject = 'Reestablece tu Password';
 
         //SET HTML
