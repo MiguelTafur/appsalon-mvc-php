@@ -11,6 +11,11 @@ function buscarPorFecha(){
     fechaInput.addEventListener('input', function(e) {
         const fechaSeleccionada = e.target.value;
 
-        window.location = `?fecha=${fechaSeleccionada}`;
+        if(!fechaSeleccionada) {
+            window.location = `admin`;
+        } else {
+
+            window.location = `admin?fecha=${fechaSeleccionada}`;
+        }
     })
 }

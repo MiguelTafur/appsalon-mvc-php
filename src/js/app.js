@@ -207,9 +207,12 @@ async function desabilitarHoras() {
                 hora.disabled = true;
                 hora.classList.remove('disponible');
                 hora.classList.add('disabled');
-                hora.textContent = `${}`;
+                //hora.textContent = `${hora.value} - Hora no Disponible`;
             } else {
-
+                hora.disabled = false;
+                hora.classList.remove('disabled');
+                //hora.textContent = hora.value;
+                hora.classList.add('disponible');
             }
         });
 
