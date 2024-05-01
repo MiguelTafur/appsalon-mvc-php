@@ -8,7 +8,12 @@
 <form action="/olvide" class="formulario" method="POST">
     <div class="campo">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Tu Email">
+        <input type="email" name="email" id="email" placeholder="Tu Email" value="<?php if($_SERVER['REQUEST_METHOD'] === 'POST'){ echo s($usuario->email);} ?>">
+    </div>
+
+    <div class="campo">
+    <label for="salonId">Código</label>
+        <input type="password" id="salonId" name="salonId" placeholder="Tu Código" value="<?php if($_SERVER['REQUEST_METHOD'] === 'POST'){ echo s($usuario->salonId);} ?>">
     </div>
 
     <input type="submit" value="Enviar Instrucciones" class="boton">

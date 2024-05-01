@@ -12,7 +12,9 @@ class ServicioController {
 
         isAdmin();
 
-        $servicios = Servicio::all();
+        $id = $_SESSION['id'];
+
+        $servicios = Servicio::where2('salonId', $id);
 
         $router->render('servicios/index', [
             'nombre' => $_SESSION['nombre'],
@@ -35,10 +37,19 @@ class ServicioController {
             $alertas = $servicio->validar();
 
             if(empty($alertas)) {
-                $servicio->guardar();
-                header("Location: /servicios");
+                //ASIGNA EL ID DEL USUARIO
+                $servicio->usuarioId = $_SESSION['id'];
+                $resultado = $servicio->guardar();
+                
+                if($resultado) {
+                    Servicio::setAlerta('exito', 'Usuario Creado Correctamente');
+
+                    header('Refresh: 2; url=/servicios');
+                }
             }
         }
+
+        $alertas = Servicio::getAlertas();
 
         $router->render('servicios/crear', [
             'nombre' => $_SESSION['nombre'],
@@ -63,10 +74,18 @@ class ServicioController {
             $alertas = $servicio->validar();
 
             if(empty($alertas)) {
-                $servicio->guardar();
-                header('Location: /servicios');
+                //ASIGNA EL ID DEL USUARIO
+                $servicio->usuarioId = $_SESSION['id'];
+                $resultado = $servicio->guardar();
+                if($resultado) {
+                    Servicio::setAlerta('exito', 'Usuario Actualizado Correctamente');
+
+                    header('Refresh: 2; url=/servicios');
+                }
             }
         }
+
+        $alertas = Servicio::getAlertas();
 
         $router->render('servicios/actualizar', [
             'nombre' => $_SESSION['nombre'],

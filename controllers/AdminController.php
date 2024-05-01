@@ -20,7 +20,7 @@ class AdminController {
         }
 
         $consulta = "SELECT citas.id, CONCAT( usuarios.nombre, ' ', usuarios.apellido) as cliente, ";
-        $consulta .= " usuarios.email, usuarios.telefono, servicios.nombre as servicio, servicios.precio,  ";
+        $consulta .= " usuarios.email, usuarios.telefono, usuarios.salonId, servicios.nombre as servicio, servicios.precio,  ";
         $consulta .= " horas.hora as hora";
         $consulta .= " FROM citas  ";
         $consulta .= " LEFT OUTER JOIN horas ";
@@ -31,7 +31,7 @@ class AdminController {
         $consulta .= " ON citasservicios.citaId=citas.id ";
         $consulta .= " LEFT OUTER JOIN servicios ";
         $consulta .= " ON servicios.id=citasservicios.servicioId ";
-        $consulta .= " WHERE fecha =  '{$fecha}' ";
+        $consulta .= " WHERE fecha =  '{$fecha}' AND usuarios.salonId = '{$_SESSION['idSalon']}' ";
 
         $citas = AdminCita::SQL($consulta);
 

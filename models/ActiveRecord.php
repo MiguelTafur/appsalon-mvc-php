@@ -123,6 +123,12 @@ class ActiveRecord {
         return array_shift( $resultado );
     }
 
+    public static function where2($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna} = '{$valor}'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     // Where and
     public static function whereAnd($columna1, $valor1, $columna2, $valor2) {
         $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna1} = '{$valor1}' AND {$columna2} = '{$valor2}'";

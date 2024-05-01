@@ -31,6 +31,11 @@
         <input type="password" id="password" name="password" placeholder="Tu Password" value="<?= s($usuario->password); ?>">
     </div>
 
+    <div class="campo">
+    <label for="salonId">Código</label>
+        <input type="password" id="salonId" name="salonId" placeholder="Tu Código" value="<?= s($usuario->salonId); ?>">
+    </div>
+
     <input type="submit" class="boton" value="Crear-cuenta">
 </form>
 

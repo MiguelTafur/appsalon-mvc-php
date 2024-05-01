@@ -43,7 +43,7 @@
                     $total += $cita->precio;
                 ?>
 
-                <p class="servicio"><?= $cita->servicio . " " . $cita->precio; ?></p>
+                <p class="servicio"><?= $cita->servicio . ": " . $cita->precio; ?></p>
 
                 <?php 
                     $actual = $cita->id;

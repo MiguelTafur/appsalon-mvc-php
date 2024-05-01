@@ -5,7 +5,7 @@ namespace Model;
 class Usuario extends ActiveRecord {
     //BASE DE DATOS
     protected static $tabla = 'usuarios';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'telefono', 'admin', 'confirmado', 'token'];
+    protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'telefono', 'admin', 'confirmado', 'token', 'salonId'];
 
     public $id;
     public $nombre;
@@ -16,6 +16,7 @@ class Usuario extends ActiveRecord {
     public $admin;
     public $confirmado;
     public $token;
+    public $salonId;
 
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
@@ -27,6 +28,7 @@ class Usuario extends ActiveRecord {
         $this->admin = $args['admin'] ?? '0';
         $this->confirmado = $args['confirmado'] ?? '0';
         $this->token = $args['token'] ?? '';
+        $this->salonId = $args['salonId'] ?? '';
     }
 
     public function validarNuevaCuenta() {
@@ -54,6 +56,10 @@ class Usuario extends ActiveRecord {
             self::$alertas['error'][] = 'El password debe contener almenos 6 caracteres';
         }
 
+        if(!$this->salonId) {
+            self::$alertas['error'][] = 'El Código es obligatorio';
+        }
+
         return self::$alertas;
     }
 
@@ -66,12 +72,20 @@ class Usuario extends ActiveRecord {
             self::$alertas['error'][] = 'El Password es obligatorio';
         }
 
+        if(!$this->salonId) {
+            self::$alertas['error'][] = 'El Código es obligatorio';
+        }
+
         return self::$alertas;
     }
 
-    public function validarEmail() {
+    public function validarEmailYCodigo() {
         if(!$this->email) {
             self::$alertas['error'][] = 'El Email es obligatorio';
+        }
+
+        if(!$this->salonId) {
+            self::$alertas['error'][] = 'El Código es obligatorio';
         }
 
         return self::$alertas;
@@ -89,8 +103,8 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
-    public function existeUsuario() {
-        $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
+    public function existeUsuario(int $codigo) {
+        $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' AND salonId = " . $codigo . " LIMIT 1";
 
         $resultado = self::$db->query($query);
 

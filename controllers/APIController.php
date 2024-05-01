@@ -4,12 +4,16 @@ namespace Controllers;
 
 use Model\Cita;
 use Model\Horas;
+use Model\Usuario;
 use Model\Servicio;
 use Model\CitaServicio;
 
 class APIController {
     public static function index() {
-        $servicios = Servicio::all();
+
+        $usuario = Usuario::find($_SESSION['id']);
+        $id = $usuario->salonId;
+        $servicios = Servicio::where2('salonId', $id);
         echo json_encode($servicios, JSON_UNESCAPED_UNICODE);
     }
 
@@ -26,8 +30,10 @@ class APIController {
             header('Location: /cita');
         }
 
+        $idSalon = $_SESSION['idSalon'];
+
         $consulta = " SELECT horas.* FROM horas, ";
-        $consulta .= " (SELECT horaId FROM citas WHERE fecha = '{$_GET['fecha']}') as citas ";
+        $consulta .= " (SELECT horaId FROM citas LEFT OUTER JOIN usuarios ON citas.usuarioId = usuarios.id WHERE fecha = '{$_GET['fecha']}' AND usuarios.salonId = $idSalon) as citas ";
         $consulta .= " WHERE horas.id IN (citas.horaId) ";
         $consulta .= " ORDER BY horas.id ";
 

@@ -3,10 +3,12 @@
 namespace Controllers;
 
 use Classes\Email;
+use Model\Salon;
 use Model\Usuario;
 use MVC\Router;
 
 class LoginController {
+
     public static function login(Router $router){
         $alertas = [];
 
@@ -22,32 +24,45 @@ class LoginController {
                 if($usuario) {
                     //VERIFICAR EL PASSWORD 
                     if ($usuario->comprobarPasswordAndVerificado($auth->password)) {
-                        //AUTENTICAR EL USUARIO
-                        isSession();
+                        //VERIFICA EL SALON DEL USUARIO CORRESPONDIENTE
+                        $salon = Salon::find($usuario->salonId);
+                        
+                        if($auth->salonId === $salon->codigo) {
+                            //AUTENTICAR EL USUARIO
+                            isSession();
 
-                        $_SESSION['id'] = $usuario->id;
-                        $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
-                        $_SESSION['email'] = $usuario->email;
-                        $_SESSION['login'] = true;
+                            $_SESSION['id'] = $usuario->id;
+                            $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
+                            $_SESSION['email'] = $usuario->email;
+                            $_SESSION['idSalon'] = $salon->id;
+                            $_SESSION['salon'] = $salon->codigo;
+                            $_SESSION['login'] = true;
 
-                        if($usuario->admin === "1") {
-                            $_SESSION['admin'] = $usuario->admin ?? null;
-                            header('Location: /admin');
-                        }else {
-                            header('Location: /cita');
+                            if($usuario->admin === "1") {
+                                $_SESSION['admin'] = $usuario->admin ?? null;
+                                header('Location: /admin');
+                            }else {
+                                header('Location: /cita');
+                            }
+                        } else {
+                            Usuario::setAlerta('error', 'El Código está incorrecto');
                         }
                     }
                 } else {
                     Usuario::setAlerta('error', 'Usuario no encontrado');
                 }
-                
             }
+        }else {
+            $auth = "";
         }
 
         $alertas = Usuario::getAlertas();
 
+
+
         $router->render('auth/login', [
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'usuario' => $auth
         ]);
     }
 
@@ -65,31 +80,43 @@ class LoginController {
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $auth = new Usuario($_POST);
-            $alertas = $auth->validarEmail();
-
+            $alertas = $auth->validarEmailYCodigo();
+            
             if(empty($alertas)) {
                 $usuario = Usuario::where('email', $auth->email);
 
                 if($usuario && $usuario->confirmado === "1") {
-                    //GENERAR TOKEN
-                    $usuario->crearToken();
-                    $usuario->guardar();
 
-                    //ENVIAR EMAIL
-                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
-                    $email->enviarConfirmacion();
+                    //VERIFICA EL SALON DEL USUARIO CORRESPONDIENTE
+                    $salon = Salon::find($usuario->salonId);
+                    
+                    if($salon->codigo === $auth->salonId) {
 
-                    Usuario::setAlerta('exito', 'Revisa tu Email');
+                        //GENERAR TOKEN
+                        $usuario->crearToken();
+                        $usuario->guardar();
+
+                        //ENVIAR EMAIL
+                        $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                        $email->enviarConfirmacion();
+
+                        Usuario::setAlerta('exito', 'Revisa tu Email');
+                    } else {
+                        Usuario::setAlerta('error', 'El Código está incorrecto');
+                    }
                 } else {
                     Usuario::setAlerta('error', 'El usuario no existe o no confirmado');
                 }
             }
+        } else {
+            $auth = "";
         }
 
         $alertas = Usuario::getAlertas();
 
         $router->render('auth/olvide-password', [
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'usuario' => $auth
         ]);
     }
 
@@ -118,11 +145,13 @@ class LoginController {
 
                 $usuario->password = $password->password;
                 $usuario->hashPassword();
-                $usuario->token = null;
+                $usuario->token = '';
 
                 $resultado = $usuario->guardar();
                 if($resultado) {
-                    header('Location: /');
+                    Usuario::setAlerta('exito', 'Password Actualizado Correctamente');
+
+                    header('Refresh: 3; url=/');
                 }
             }
         }
@@ -147,31 +176,41 @@ class LoginController {
             
             //REVISAR QUE ALERTA ESTE VACIO
             if(empty($alertas)) {
-                //VERIFICAR QUE EL RESULTADO YA ESTE REGISTRADO
-                $resultado = $usuario->existeUsuario();
+                //VERIFICAR EL SALON
+                $salon = Salon::where('codigo', $usuario->salonId);
+                if($salon) {
+                    //VERIFICAR QUE EL RESULTADO YA ESTE REGISTRADO
+                    $resultado = $usuario->existeUsuario(intval($salon->id));
 
-                if($resultado->num_rows) {
-                    $alertas = Usuario::getAlertas();
-                }else {
-                    //Hashear Password
-                    $usuario->hashPassword();
+                    if($resultado->num_rows) {
+                        $alertas = Usuario::getAlertas();
+                    }else {
+                        //Hashear Password
+                        $usuario->hashPassword();
 
-                    //GENERAR UN TOKEN UNICO
-                    $usuario->crearToken();
+                        //GENERAR UN TOKEN UNICO
+                        $usuario->crearToken();
 
-                    //ENVIAR EL EMAIL
-                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token); 
+                        //ENVIAR EL EMAIL
+                        $email = new Email($usuario->email, $usuario->nombre, $usuario->token); 
 
-                    $email->enviarEmail();
+                        $email->enviarEmail();
 
-                    //CREAR EL USUARIO
-                    $resultado = $usuario->guardar();
-                    if($resultado) {
-                        header('Location: /mensaje');
+                        //SETEANDO EL VALOR DE "salonId"
+                        $usuario->salonId = $salon->id;
+                        //CREAR EL USUARIO
+                        $resultado = $usuario->guardar();
+                        if($resultado) {
+                            header('Location: /mensaje');
+                        }
                     }
+                } else {
+                    Usuario::setAlerta('error', 'Codigo de acceso no identificado');
                 }
             }
         }
+
+        $alertas = Usuario::getAlertas();
 
         $router->render('auth/crear-cuenta', [
             'usuario' => $usuario,
@@ -196,7 +235,7 @@ class LoginController {
         }else {
             //MODIFICAR A USUARIO CONFIRMADO
             $usuario->confirmado = "1";
-            $usuario->token = null;
+            $usuario->token = '';
             $usuario->guardar();
             Usuario::setAlerta('exito', 'Cuenta comprobada correctamente');
         }
