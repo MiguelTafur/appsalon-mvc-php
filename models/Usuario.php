@@ -33,7 +33,7 @@ class Usuario extends ActiveRecord {
 
     public function validarNuevaCuenta() {
         if(!$this->nombre) {
-            self::$alertas['error'][] = 'El nombre del Cliente é obrigatório';
+            self::$alertas['error'][] = 'O Nome do Cliente é obrigatório';
         }
 
         if(!$this->apellido) {
@@ -41,11 +41,11 @@ class Usuario extends ActiveRecord {
         }
 
         if(!$this->telefono) {
-            self::$alertas['error'][] = 'El Telefone do Cliente é obrigatório';
+            self::$alertas['error'][] = 'O Telefone do Cliente é obrigatório';
         }
 
         if(!$this->email) {
-            self::$alertas['error'][] = 'El Email do Cliente é obrigatório';
+            self::$alertas['error'][] = 'O Email do Cliente é obrigatório';
         }
 
         if(!$this->password) {
