@@ -33,31 +33,31 @@ class Usuario extends ActiveRecord {
 
     public function validarNuevaCuenta() {
         if(!$this->nombre) {
-            self::$alertas['error'][] = 'El nombre del Cliente es obligatorio';
+            self::$alertas['error'][] = 'El nombre del Cliente é obrigatório';
         }
 
         if(!$this->apellido) {
-            self::$alertas['error'][] = 'El apellido del Cliente es obligatorio';
+            self::$alertas['error'][] = 'O Sobrenome do Cliente é obrigatório';
         }
 
         if(!$this->telefono) {
-            self::$alertas['error'][] = 'El Teléfono del Cliente es obligatorio';
+            self::$alertas['error'][] = 'El Telefone do Cliente é obrigatório';
         }
 
         if(!$this->email) {
-            self::$alertas['error'][] = 'El Email del Cliente es obligatorio';
+            self::$alertas['error'][] = 'El Email do Cliente é obrigatório';
         }
 
         if(!$this->password) {
-            self::$alertas['error'][] = 'El password del Cliente es obligatorio';
+            self::$alertas['error'][] = 'A Senha do Cliente é obrigatória';
         }
 
         if(strlen($this->password) < 6) {
-            self::$alertas['error'][] = 'El password debe contener almenos 6 caracteres';
+            self::$alertas['error'][] = 'A Senha deve conter no mínimo 6 caracteres';
         }
 
         if(!$this->salonId) {
-            self::$alertas['error'][] = 'El Código es obligatorio';
+            self::$alertas['error'][] = 'O Código é obrigatório';
         }
 
         return self::$alertas;
@@ -65,15 +65,15 @@ class Usuario extends ActiveRecord {
 
     public function validarLogin() {
         if(!$this->email) {
-            self::$alertas['error'][] = 'El Email es obligatorio';
+            self::$alertas['error'][] = 'O Email é obrigatório';
         }
 
         if(!$this->password) {
-            self::$alertas['error'][] = 'El Password es obligatorio';
+            self::$alertas['error'][] = 'A Senha é obrigatória';
         }
 
         if(!$this->salonId) {
-            self::$alertas['error'][] = 'El Código es obligatorio';
+            self::$alertas['error'][] = 'O Código é obrigatório';
         }
 
         return self::$alertas;
@@ -81,11 +81,11 @@ class Usuario extends ActiveRecord {
 
     public function validarEmailYCodigo() {
         if(!$this->email) {
-            self::$alertas['error'][] = 'El Email es obligatorio';
+            self::$alertas['error'][] = 'O Email é obrigatório';
         }
 
         if(!$this->salonId) {
-            self::$alertas['error'][] = 'El Código es obligatorio';
+            self::$alertas['error'][] = 'O Código é obrigatório';
         }
 
         return self::$alertas;
@@ -93,11 +93,11 @@ class Usuario extends ActiveRecord {
 
     public function validarPassword() {
         if(!$this->password) {
-            self::$alertas['error'][] = 'El Password es obligatorio';
+            self::$alertas['error'][] = 'A Senha obrigatória';
         }
 
         if(strlen($this->password) < 6) {
-            self::$alertas['error'][] = 'El Password debe tener almenos 6 caracteres';
+            self::$alertas['error'][] = 'A Senha deve conter no mínimo 6 caracteres';
         }
 
         return self::$alertas;
@@ -109,7 +109,7 @@ class Usuario extends ActiveRecord {
         $resultado = self::$db->query($query);
 
         if($resultado->num_rows) {
-            self::$alertas['error'][] = 'El usuario ya está registrado';
+            self::$alertas['error'][] = 'O usuário já tem registro';
         }
 
         return $resultado;
@@ -127,7 +127,7 @@ class Usuario extends ActiveRecord {
         $resultado = password_verify($password, $this->password);
 
         if(!$resultado || !$this->confirmado) {
-            self::$alertas['error'][] = 'Password incorrecto o tu cuenta no ha sido confirmada';
+            self::$alertas['error'][] = 'Senha errada ou sua conta ainda não foi confirmada';
         } else {
             return true;
         }

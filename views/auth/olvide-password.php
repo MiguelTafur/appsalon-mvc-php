@@ -1,5 +1,5 @@
-<h1 class="nombre-pagina">Olvidé Password</h1>
-<p class="descripcion-pagina">Reestablece tu Password escribiendo tu Email a continuación</p>
+<h1 class="nombre-pagina">Recuperar Senha</h1>
+<p class="descripcion-pagina">Redefina sua senha digitando seu e-mail e Código abaixo</p>
 
 <?php 
     include __DIR__ . '/../templates/alertas.php';
@@ -8,18 +8,18 @@
 <form action="/olvide" class="formulario" method="POST">
     <div class="campo">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Tu Email" value="<?php if($_SERVER['REQUEST_METHOD'] === 'POST'){ echo s($usuario->email);} ?>">
+        <input type="email" name="email" id="email" placeholder="Seu Email" value="<?php if($_SERVER['REQUEST_METHOD'] === 'POST'){ echo s($usuario->email);} ?>">
     </div>
 
     <div class="campo">
     <label for="salonId">Código</label>
-        <input type="password" id="salonId" name="salonId" placeholder="Tu Código" value="<?php if($_SERVER['REQUEST_METHOD'] === 'POST'){ echo s($usuario->salonId);} ?>">
+        <input type="password" id="salonId" name="salonId" placeholder="Seu Código" value="<?php if($_SERVER['REQUEST_METHOD'] === 'POST'){ echo s($usuario->salonId);} ?>">
     </div>
 
-    <input type="submit" value="Enviar Instrucciones" class="boton">
+    <input type="submit" value="Enviar instruções" class="boton">
 </form>
 
 <div class="acciones">
-    <a href="/">Ya tienes una cuenta? Inicia Sesión</a>
-    <a href="/crear-cuenta">Aún no tienes una cuenta? Crear una</a>
+    <a href="/crear-cuenta">Não tem conta? Crie uma</a>
+    <a href="/olvide">Esqueceu a senha?</a>
 </div>
