@@ -42,7 +42,7 @@ class ServicioController {
                 $resultado = $servicio->guardar();
                 
                 if($resultado) {
-                    Servicio::setAlerta('exito', 'Usuario Creado Correctamente');
+                    Servicio::setAlerta('exito', 'Serviço Salvo');
 
                     header('Refresh: 2; url=/servicios');
                 }
@@ -78,7 +78,7 @@ class ServicioController {
                 $servicio->usuarioId = $_SESSION['id'];
                 $resultado = $servicio->guardar();
                 if($resultado) {
-                    Servicio::setAlerta('exito', 'Usuario Actualizado Correctamente');
+                    Servicio::setAlerta('exito', 'Serviço Atualizado');
 
                     header('Refresh: 2; url=/servicios');
                 }

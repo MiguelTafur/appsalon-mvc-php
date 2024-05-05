@@ -1,12 +1,12 @@
-<h1 class="nombre-pagina">Panel de Administración</h1>
+<h1 class="nombre-pagina">Painel de administração</h1>
 
 <?php include_once __DIR__ . '/../templates/barra.php'; ?>
 
-<h2>Buscar Citas</h2>
+<h2>Pesquisar Agendamentos</h2>
 <div class="busqueda">
     <form class="formulario">
         <div class="campo">
-            <label for="fecha">Fecha</label>
+            <label for="fecha">Data:</label>
             <input type="date" id="fecha" name="fecha" value="<?= $fecha; ?>">
         </div>
     </form>
@@ -14,7 +14,7 @@
 
 <?php 
     if(count($citas) === 0) {
-        echo "<br><br><br><h2>No hay Citas en esta fecha</h2>";
+        echo "<br><br><br><h2>Não há agendamentos nesta data</h2>";
     }
 ?>
 
@@ -33,9 +33,9 @@
                 <p>Hora: <span><?= $cita->hora; ?></span></p>
                 <p>Cliente: <span><?= $cita->cliente; ?></span></p>
                 <p>Email: <span><?= $cita->email; ?></span></p>
-                <p>Teléfono: <span><?= $cita->telefono; ?></span></p>
+                <p>Telefone: <span><?= $cita->telefono; ?></span></p>
 
-                <h3>Servicios</h3>
+                <h3>Serviços</h3>
 
                 <?php 
                     $idCita = $cita->id;
@@ -55,7 +55,7 @@
                         <form action="/api/eliminar" method="POST">
                             <input type="hidden" name="id" value="<?= $cita->id; ?>">
 
-                            <input type="submit" class="boton-eliminar" value="Eliminar">
+                            <input type="submit" class="boton-eliminar" value="Excluir">
                         </form>
                     <?php } ?>
 

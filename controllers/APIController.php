@@ -51,7 +51,7 @@ class APIController {
         $citaExistente = Cita::whereAnd('fecha', $_POST['fecha'], 'horaId', $_POST['horaId']);
 
         if($citaExistente) {
-            $alertas[] = 'Ya existe una cita en esa fecha y hora';
+            $alertas[] = 'Já existe um Agendamento nessa data e hora';
 
             $respuesta = [
                 'alertas' => $alertas
