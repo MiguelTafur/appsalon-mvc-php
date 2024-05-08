@@ -1,5 +1,5 @@
-<h1 class="nombre-pagina">Nuevo Servicio</h1>    
-<p class="descripcion-pagina">Llena todos los campos para añadir un nuevo servicio</p>
+<h1 class="nombre-pagina">Novo Serviço</h1>    
+<p class="descripcion-pagina">Preencha todos os campos para adicionar um novo serviço</p>
 
 <?php include __DIR__ . '/../templates/alertas.php'; ?>
 
@@ -7,7 +7,7 @@
 
 <?php include_once __DIR__ .  '/formulario.php' ?>
     
-    <input type="submit" class="boton" value="Guardar Servicio">
+    <input type="submit" class="boton" value="Salvar serviço">
 
-    <a href="/servicios" class="boton">Volver</a>
+    <a href="/servicios" class="boton">retornar</a>
 </form>

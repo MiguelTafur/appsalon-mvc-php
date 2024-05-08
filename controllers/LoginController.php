@@ -45,11 +45,11 @@ class LoginController {
                                 header('Location: /cita');
                             }
                         } else {
-                            Usuario::setAlerta('error', 'El Código está incorrecto');
+                            Usuario::setAlerta('error', 'O Código está errado');
                         }
                     }
                 } else {
-                    Usuario::setAlerta('error', 'Usuario no encontrado');
+                    Usuario::setAlerta('error', 'Usuário não encontrado');
                 }
             }
         }else {
@@ -100,12 +100,12 @@ class LoginController {
                         $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
                         $email->enviarConfirmacion();
 
-                        Usuario::setAlerta('exito', 'Revisa tu Email');
+                        Usuario::setAlerta('exito', 'Verifique seu Email');
                     } else {
-                        Usuario::setAlerta('error', 'El Código está incorrecto');
+                        Usuario::setAlerta('error', 'O Código está errado');
                     }
                 } else {
-                    Usuario::setAlerta('error', 'El usuario no existe o no confirmado');
+                    Usuario::setAlerta('error', 'O usuário não existe ou não confirmado');
                 }
             }
         } else {
@@ -131,7 +131,7 @@ class LoginController {
         $usuario = Usuario::where('token', $token);
 
         if(empty($usuario)) {
-            Usuario::setAlerta('error', 'Token no válido');
+            Usuario::setAlerta('error', 'Token inválido');
             $error = true;
         }
 
@@ -149,7 +149,7 @@ class LoginController {
 
                 $resultado = $usuario->guardar();
                 if($resultado) {
-                    Usuario::setAlerta('exito', 'Password Actualizado Correctamente');
+                    Usuario::setAlerta('exito', 'Senha Atualizada');
 
                     header('Refresh: 3; url=/');
                 }
@@ -205,7 +205,7 @@ class LoginController {
                         }
                     }
                 } else {
-                    Usuario::setAlerta('error', 'Codigo de acceso no identificado');
+                    Usuario::setAlerta('error', 'Código de acesso não identificado');
                 }
             }
         }
@@ -231,13 +231,13 @@ class LoginController {
 
         if(empty($usuario)) {
             //MOSTRAR EL MENSAJE DE ERROR
-            Usuario::setAlerta('error', 'Token no válido');
+            Usuario::setAlerta('error', 'Token inálido');
         }else {
             //MODIFICAR A USUARIO CONFIRMADO
             $usuario->confirmado = "1";
             $usuario->token = '';
             $usuario->guardar();
-            Usuario::setAlerta('exito', 'Cuenta comprobada correctamente');
+            Usuario::setAlerta('exito', 'Conta verificada');
         }
 
         //OBTENER ALERTAS

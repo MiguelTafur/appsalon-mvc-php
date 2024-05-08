@@ -1,7 +1,7 @@
-<h1 class="nombre-pagina">Confirma tu Cuenta</h1>
+<h1 class="nombre-pagina">Confirme sua conta</h1>
 
-<p class="descripcion-pagina">Hemos enviado las instrucciones para confirmar tu cuenta a tu E-mail.</p>
+<p class="descripcion-pagina">Enviamos as instruções para confirmar sua conta para seu e-mail.</p>
 
 <div class="acciones">
-    <a href="/" class="boton">Aceptar</a>
+    <a href="/" class="boton">Aceitar</a>
 </div>

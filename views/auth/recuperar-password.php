@@ -1,5 +1,5 @@
-<h1 class="nombre-pagina">Recuperar Password</h1>
-<p class="descripcion-pagina">Coloca tu nuevo Password a continuación</p>
+<h1 class="nombre-pagina">Recuperar senha</h1>
+<p class="descripcion-pagina">Digite sua nova senha abaixo</p>
 
 <?php 
     include __DIR__ . '/../templates/alertas.php';
@@ -10,12 +10,12 @@
 <form class="formulario" method="POST">
     <div class="campo">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Tu nuevo Password">
+        <input type="password" name="password" id="password" placeholder="Sua nova Senha">
     </div>
-    <input type="submit" class="boton" value="Guardar nuevo Password">
+    <input type="submit" class="boton" value="Salvar nova senha">
 </form>
 
 <div class="acciones">
-    <a href="/">Ya tienes una cuenta? Inicia Sesión</a>
-    <a href="/crear-cuenta">Aún no tienes una cuenta? Crear una</a>
+    <a href="/crear-cuenta">Não tem conta? Crie uma</a>
+    <a href="/olvide">Esqueceu a senha?</a>
 </div>

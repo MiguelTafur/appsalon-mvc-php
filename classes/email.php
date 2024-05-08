@@ -27,16 +27,22 @@ class Email {
 
         $mail->setFrom('miguel@credimast.com');
         $mail->addAddress('miguel@credimast.com', 'appsalon.com');
-        $mail->Subject = 'Confirma tu cuenta';
+        $mail->Subject = 'Verifique sua conta';
 
         //SET HTML
         $mail->isHTML(TRUE);
         $mail->Charset = 'UTF-8';
 
         $contenido = "<html>";
+<<<<<<< HEAD
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has creado tu cuenta en '".$_ENV['APP_NAME']."', solo debes confirmarla presionando el siguiente enlace</p>";
         $contenido .= "<p>Presiona aqui: <a href='".$_ENV['APP_URL']."/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a><p>";
         $contenido .= "<p>Si no solicitaste esta cuenta, puedes ignorar el mensaje</p>";
+=======
+        $contenido .= "<p><strong>Olá " . $this->nombre . "</strong> Você criou sua conta no '".$_ENV['APP_URL']."', Você só precisa confirmar clicando no link a seguir</p>";
+        $contenido .= "<p>aperte aqui: <a href='".$_ENV['APP_URL']."/confirmar-cuenta?token=" . $this->token . "'>Verificar Conta</a><p>";
+        $contenido .= "<p>Se você não solicitou esta conta, você pode ignorar a mensagem</p>";
+>>>>>>> appSalonPortugues
         $contenido .= "</html>";
         $mail->Body = $contenido;
 
@@ -62,9 +68,9 @@ class Email {
         $mail->Charset = 'UTF-8';
 
         $contenido = "<html>";
-        $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado reestablecer tu Password, sigue el siguiente enlace para hacerlo.</p>";
-        $contenido .= "<p>Presiona aqui: <a href='".$_ENV['APP_URL']."/recuperar?token=" . $this->token . "'>Reestablecer Password</a><p>";
-        $contenido .= "<p>Si no solicitaste esta cuenta, puedes ignorar el mensaje</p>";
+        $contenido .= "<p><strong>Olá " . $this->nombre . "</strong> Você solicitou a redefinição de sua senha, segue o link abaixo para fazer isso.</p>";
+        $contenido .= "<p>Aperte aqui: <a href='".$_ENV['APP_URL']."/recuperar?token=" . $this->token . "'>Redefinir Senha</a><p>";
+        $contenido .= "<p>Se você não solicitou esta conta, você pode ignorar a mensagem</p>";
         $contenido .= "</html>";
         $mail->Body = $contenido;
 

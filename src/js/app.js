@@ -184,7 +184,7 @@ function seleccionarFecha() {
 
         if([0].includes(dia)) {
             e.target.value = '';
-            mostrarAlerta('Trabajamos de lunes a sábados', 'error', '.formulario');
+            mostrarAlerta('Horários de Segunda à Sexta', 'error', '.formulario');
         } else {
             cita.fecha = e.target.value;
             desabilitarHoras();
@@ -280,7 +280,7 @@ function mostrarResumen() {
     }
 
     if(Object.values(cita).includes('') || cita.servicios.length === 0) {
-        mostrarAlerta('Faltan datos de Servicio, fecha u Hora', 'error', '.contenido-resumen', false);
+        mostrarAlerta('Faltam dados do serviço, data ou hora', 'error', '.contenido-resumen', false);
         return;
     }
 
@@ -289,7 +289,7 @@ function mostrarResumen() {
 
     //HEADEING PARA SERVICIOS EN RESUMEN
     const headindServicios = document.createElement('H3');
-    headindServicios.textContent = 'Resumen de Servicios';
+    headindServicios.textContent = 'Resumo dos serviços';
     resumen.appendChild(headindServicios);
 
     //ITERANDO Y MOSTRANDO LOS SERVICIOS
@@ -302,7 +302,7 @@ function mostrarResumen() {
         const textoServicio = document.createElement('P');
         textoServicio.textContent = nombre;
         const precioServicio = document.createElement('P');
-        precioServicio.innerHTML = `<span>Precio:</span> $${precio}`;
+        precioServicio.innerHTML = `<span>Preço:</span> $${precio}`;
 
         contenedorServicio.appendChild(textoServicio);
         contenedorServicio.appendChild(precioServicio);
@@ -317,11 +317,11 @@ function mostrarResumen() {
 
     //HEADEING PARA SERVICIOS EN RESUMEN
     const headindCita = document.createElement('H3');
-    headindCita.textContent = 'Resumen de Cita';
+    headindCita.textContent = 'Resumo do Agendamento';
     resumen.appendChild(headindCita);
 
     const nombreCliente = document.createElement('P');
-    nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
+    nombreCliente.innerHTML = `<span>Nome:</span> ${nombre}`;
 
     //FORMATEAR LA FECHA EN ESPANHOL
     const fechaObj = new Date(fecha);
@@ -333,18 +333,18 @@ function mostrarResumen() {
     const fechaFormateada = fechaUTC.toLocaleDateString('pt-BR', opciones);
 
     const fechaCita = document.createElement('P');
-    fechaCita.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`;
+    fechaCita.innerHTML = `<span>Data:</span> ${fechaFormateada}`;
     const horaCita = document.createElement('P');
     horaCita.innerHTML = `<span>Hora:</span> ${hora}`;
 
     // MOSTRAR LA CANTIDAD DE SERVICIOS SELECCIONADOS
     const cantidadServicios = document.createElement('P');
-    cantidadServicios.innerHTML = `<span>Cantidad de Servicios:</span> ${servicios.length}`;
+    cantidadServicios.innerHTML = `<span>Quantidade de serviços:</span> ${servicios.length}`;
 
     //BOTON PARA CREAR UNA CITA
     const botonReservar = document.createElement('BUTTON');
     botonReservar.classList.add('boton');
-    botonReservar.textContent = 'Reservar Cita'
+    botonReservar.textContent = 'Agendar'
     botonReservar.onclick = reservarCita;
 
     resumen.appendChild(nombreCliente);
@@ -398,7 +398,7 @@ async function reservarCita() {
         } else {
             Toast.fire({
                 icon: 'success',
-                title: 'La cita fue creada correctamente.'
+                title: 'O Agendamento foi criado com sucesso.'
             }).then(() => {
                 window.location.reload();
             })
@@ -407,7 +407,7 @@ async function reservarCita() {
     } catch (error) {
         Toast.fire({
             icon: 'error',
-            title: 'Oops! Ocurrio un error al guardar la cita.'
+            title: 'Oops! Ocorreu um erro ao salvar o Agendamento.'
         })
     }
 }

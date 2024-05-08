@@ -1,5 +1,5 @@
-<h1 class="nombre-pagina">Crear cuenta</h1>
-<p class="descripcion-pagina">Llena el formulario para crear una cuenta</p>
+<h1 class="nombre-pagina">Criar Conta</h1>
+<p class="descripcion-pagina">Preencha o formulário para criar uma conta</p>
 
 <?php 
     include __DIR__ . '/../templates/alertas.php';
@@ -7,39 +7,39 @@
 
 <form action="/crear-cuenta" method="POST" class="formulario">
     <div class="campo">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Tu Nombre" value="<?= s($usuario->nombre); ?>">
+        <label for="nombre">Nome</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Seu Nome" value="<?= s($usuario->nombre); ?>">
     </div>
 
     <div class="campo">
-        <label for="apellido">Apellido</label>
-        <input type="text" id="apellido" name="apellido" placeholder="Tu Apellido" value="<?= s($usuario->apellido); ?>">
+        <label for="apellido">Sobrenome</label>
+        <input type="text" id="apellido" name="apellido" placeholder="Seu Sobrenome" value="<?= s($usuario->apellido); ?>">
     </div>
 
     <div class="campo">
-        <label for="telefono">Teléfono</label>
-        <input type="text" id="telefono" name="telefono" placeholder="Tu Teléfono" value="<?= s($usuario->telefono); ?>">
+        <label for="telefono">Telefone</label>
+        <input type="text" id="telefono" name="telefono" placeholder="Seu Telefone" value="<?= s($usuario->telefono); ?>">
     </div>
 
     <div class="campo">
-        <label for="email">E-mail</label>
-        <input type="text" id="email" name="email" placeholder="Tu E-mail" value="<?= s($usuario->email); ?>">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="Seu Email" value="<?= s($usuario->email); ?>">
     </div>
 
     <div class="campo">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Tu Password" value="<?= s($usuario->password); ?>">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Sua Senha" value="<?= s($usuario->password); ?>">
     </div>
 
     <div class="campo">
     <label for="salonId">Código</label>
-        <input type="password" id="salonId" name="salonId" placeholder="Tu Código" value="<?= s($usuario->salonId); ?>">
+        <input type="password" id="salonId" name="salonId" placeholder="Seu Código" value="<?= s($usuario->salonId); ?>">
     </div>
 
-    <input type="submit" class="boton" value="Crear-cuenta">
+    <input type="submit" class="boton" value="Criar Conta">
 </form>
 
 <div class="acciones">
-    <a href="/">Ya tienes una cuenta? Inicia Sesión</a>
-    <a href="/olvide">Olvidaste tu password?</a>
+    <a href="/">Já tem uma conta? Inicia Sessão</a>
+    <a href="/olvide">Esqueceu a senha?</a>
 </div>

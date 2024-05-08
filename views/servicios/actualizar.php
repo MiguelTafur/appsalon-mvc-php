@@ -1,5 +1,5 @@
-<h1 class="nombre-pagina">Actualizar Servicio</h1>    
-<p class="descripcion-pagina">Modifica los valores del formulario</p>
+<h1 class="nombre-pagina">Atualizar Serviço</h1>    
+<p class="descripcion-pagina">Modifique os valores do formulário</p>
 
 <?php 
     include __DIR__ . '/../templates/barra.php'; 
@@ -8,5 +8,5 @@
 
 <form method="POST" class="formulario">
     <?php include_once __DIR__ .  '/formulario.php' ?>
-    <input type="submit" class="boton" value="Actualizar">
+    <input type="submit" class="boton" value="Atualizar">
 </form>
